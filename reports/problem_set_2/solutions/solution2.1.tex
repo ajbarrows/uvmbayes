@@ -1,0 +1,5 @@
+The expectation can be expressed as follows:\\
+\begin{align*}
+    E_{p(\theta|X)}[f(\theta,u)] &= \int f(t,u)\cdot p(\theta=t|X)d\theta\\
+    &= \int_{-\infty}^{u} k_1(u-\theta)\cdot p(\theta=t|X)d\theta + \int_{u}^{\infty} k_2(\theta-u)\cdot p(\theta=t|X)d\theta
+\end{align*}

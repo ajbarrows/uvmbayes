@@ -1,0 +1,21 @@
+Considering first the left term of the RHS of the equation in 2.1:
+\begin{align*}
+    & \frac{d}{du}\int_{-\infty}^{u} k_1(u-\theta)\cdot p(\theta=t|X)d\theta\\
+   &= k_1(u-u)\cdot p(u=t|X)\cdot \frac{d}{du}u - \lim_{q\rightarrow-\infty} k_1(u-q)\cdot p(q=t|X)\cdot \frac{d}{du}q + \int_{-\infty}^{u} \frac{\partial}{\partial u} k_1(u-\theta)\cdot p(\theta=t|X)d\theta\\
+   &= 0 - 0 + \int_{-\infty}^{u} k_1\cdot p(\theta=t|X) d\theta\\
+   &= k_1 \int_{-\infty}^{u} p(\theta=t|X) d\theta
+\end{align*}
+Now considering the right term of the RHS of the equation in 2.1:
+\begin{align*}
+    & \frac{d}{du}\int_{u}^{\infty} k_2(\theta-u)\cdot p(\theta=t|X)d\theta\\
+   &= \lim_{q\rightarrow\infty} k_2(q-u)\cdot p(q=t|X)\cdot \frac{d}{du}q - k_2(u-u)\cdot p(u=t|X)\cdot \frac{d}{du}u + \int_{u}^{\infty} \frac{\partial}{\partial u} k_2(\theta-u)\cdot p(\theta=t|X)d\theta\\
+   &= 0 - 0 - \int_{u}^{\infty} k_2\cdot p(\theta=t|X) d\theta\\
+   &= -k_2 \int_{u}^{\infty} p(\theta=t|X) d\theta\\
+   &= -k_2 \left(1-\int_{-\infty}^{u} p(\theta=t|X)d\theta\right)\\
+   &= k_2 \left(\int_{-\infty}^{u} p(\theta=t|X)d\theta-1\right)
+\end{align*}
+Thus, the full expression becomes:
+\begin{align*}
+    0 &= k_1 \int_{-\infty}^{u} p(\theta=t|X) d\theta + k_2 \left(\int_{-\infty}^{u} p(\theta=t|X)d\theta-1\right)\\
+    0 &= (k_1 + k_2)\int_{-\infty}^{u} p(\theta=t|X) d\theta - k_2
+\end{align*}
