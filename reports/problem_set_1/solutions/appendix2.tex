@@ -1,0 +1,50 @@
+Comparison between given function and \texttt{scipy.stats.nbinom}:
+
+\begin{minted}{python}
+
+import numpy as np
+import scipy.stats as sps
+import scipy.special
+
+class n_binom():
+    def __init__(self, r: int, p: float):
+        self.r=r
+        self.p=p
+    
+    def pmf(self, k:float):
+        ft_top = k+self.r-1
+        first_term = self._factorial(top=ft_top, bottom=k)
+        second_term = (1-self.p)**k
+        third_term = self.p**self.r
+
+        return first_term * second_term * third_term
+
+    def expect(self):
+        return (self.r * (1 - self.p)) / self.p
+    
+    def var(self):
+        return (self.r * (1 - self.p)) / self.p**2
+    
+    def _factorial(self, top, bottom):
+        top_fact = scipy.special.factorial(top)
+        bottom_fact = scipy.special.factorial(bottom)
+        tmb_fact = scipy.special.factorial(top - bottom)
+
+        return top_fact / (bottom_fact * tmb_fact)
+ 
+def all_equal(X, r=5, p=0.5):
+    """Determine if equal within working precision."""
+    nbinom_ajb = n_binom(r=r, p=p)
+    sps_nbinom = sps.nbinom(n=r, p=p)
+
+    pmf = np.allclose(nbinom_ajb.pmf(X), sps_nbinom.pmf(X))
+    expect = np.allclose(nbinom_ajb.expect(), sps_nbinom.expect())
+    var = np.allclose(nbinom_ajb.var(), sps_nbinom.var())
+
+    return all([pmf, expect, var])
+
+>>> all_equal(X)
+>>> True
+\end{minted}
+
+We will use \texttt{scipy.stats.nbinom}.

@@ -1,0 +1,20 @@
+
+To find possible values of the true-positive rate and of true-negative rate, we can use the above formula with few givens:  
+\begin{align*}
+   0.97 =  \frac{P(Test = Y1|Mutation =Y)\cdot(0.0002)}{P(Test = Y1|Mutation =Y)\cdot P(Mutation = Y) + P(Test = Y1|Mutation =N)\cdot P(Mutation = N)}
+\end{align*}
+
+After replacing the terms $P(Test = Y1|Mutation =Y)$ with $R_{tp}$ (true positive rate) (which is also 1 - the false negative rate ($R_{fn}$)) and $P(Test = Y1|Mutation =N)$ with $R_{fp}$ (false positive rate) (also 1 - the true negative rate ($R_{tn}$)), we get the following expression:
+
+\begin{align*}
+   0.97 =  \frac{R_{tp}\times 0.0002}{(1-R_{fn})\times P(Mutation = Y) + (1 - R_{tn} )\cdot P(Mutation = N)}
+\end{align*}
+
+\begin{align*}
+  0.0002 \times R_{tp} =  {0.97\times R_{tp}\times 0.0002} +{0.97\times (1-R_{tn})\times 0.9998}
+\end{align*}
+
+Hence, after rearranging the equation above, here is the relationship we get between rate of true positive and rate of true negative:
+\begin{align*}
+  R_{tp} = \frac{0.97\times0.9998}{0.03\times 0.0002}\times 1 - R_{tn}
+\end{align*}

@@ -1,0 +1,15 @@
+The conditional probability that this shipment came from Company A can be expressed in the form of Bayes' theorem as follows:\\
+\begin{align*}
+    P(S=A|r_S=\frac{4}{25}) = \frac{P(r_S=\frac{4}{25}|S=A)\cdot P(S=A)}{P(r_S=\frac{4}{25})}
+\end{align*}
+
+where $r_S$ is the proportion of failed vaccines.
+
+Taking the likelihood $P(r_s=\frac{4}{25}|S=A)$ from a binomial distribution and expanding the marginal $P(r_S=\frac{4}{25})$ using the law of total probability, we have the following:
+\begin{align*}
+    P(S=A|r_S=\frac{4}{25}) &= \frac{(\binom{25}{4}(0.05)^{4}(0.95)^{21})(\frac{2}{5})}{P(r_S=\frac{4}{25}|S=A)\cdot P(S=A)+P(r_S=\frac{4}{25}|S=B)\cdot P(S=B)}\\
+    &= \frac{(\binom{25}{4}(0.05)^{4}(0.95)^{21})(\frac{2}{5})}{(\binom{25}{4}(0.05)^{4}(0.95)^{21})(\frac{2}{5})+(\binom{25}{4}(0.08)^{4}(0.92)^{21})(\frac{3}{5})}\\
+    &= 0.16636...\\
+    &\approx 1/6
+\end{align*}
+Thus, the posterior probability that the shipment came from Company A is less than the prior probability that the shipment came from Company A; the information provided by the hospital test of a shipment lowered our confidence.

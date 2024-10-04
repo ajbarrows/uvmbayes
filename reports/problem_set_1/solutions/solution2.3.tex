@@ -1,0 +1,14 @@
+Intuitively, this should be true, since the conditional probability is informed by data which would increase our confidence that there are no fish.\\
+The conditional probability that there are no fish in the river given that we caught no fish can be \begin{align*}
+    P(\theta=N|X=0) = \frac{P(X=0|\theta=N)\cdot P(\theta=N)}{P(X=0)}
+\end{align*}
+Expanding the marginal $P(X=0)$ using the law of total probability, we have all of the probabilities required to calculate the conditional probability:
+\begin{align*}
+    P(\theta=N|X=0) &= \frac{P(X=0|\theta=N)\cdot P(\theta=N)}{P(X=0|\theta=N)\cdot P(\theta=N)+P(X=0|\theta=F)\cdot P(\theta=F)}\\
+    &= \frac{(1)(0.2)}{(1)(0.2)+(0.1)(0.8)}\\
+    &= 0.714
+\end{align*}
+Comparing the conditional probability and the marginal, we see that our intuition was correct and the former is indeed greater than the latter:
+\begin{align*}
+    P(\theta=N|X=0) = 0.714 > P(\theta=N) = 0.20
+\end{align*}

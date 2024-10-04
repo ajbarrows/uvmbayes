@@ -1,0 +1,68 @@
+Model definition implemented in Python.
+
+\begin{minted}{python}
+
+class mpoxModel:
+    """Define mpox transmission model.
+    
+        Args:
+            X (list): Data in list form. Integers expected.
+            a (float): Passed to `scipy.stats.beta`.
+            b (float): Passed to `scipy.stats.beta`.
+            r (int, optional): Passed to `scipy.stats.nbinom`. Defaults to 5.
+        """
+    def __init__(self, X: list, a: float, b: float, r: int=5):
+    
+        self.a = a
+        self.b = b
+        self.r = r
+        self.X = X
+        self.k = sum(X)
+        self.n = len(X)
+
+    def posterior(self):
+        """Define posterior distribution.
+
+        Returns:
+            sps.rv_frozen: Beta distribution.
+        """     
+        a_term = self.n * self.r + self.a
+        b_term = self.k + self.b
+        return sps.beta(a_term, b_term)
+    
+    
+    def posterior_mode(self, n_trials=10) -> float:
+        """Find MAP numerically."""
+        best_minimum = float('inf')
+        for _ in range(n_trials):
+            p0 = self.prior().rvs()
+            results = scipy.optimize.minimize(lambda p: -self.posterior().pdf(p), p0)
+            if results['fun'] < best_minimum:
+                best_result = results
+                best_minimum = results['fun']
+        return best_result['x'][0]
+    
+    def summaries(self, interval=0.95):
+        """Return table of posterior summaries."""
+        post_interval = self.posterior().interval(interval)
+        post_interval = f"{post_interval[0]:.3f}, {post_interval[1]:.3f}"
+
+        res = {
+            'Posterior Mean': self.posterior().mean(),
+            'Posterior Mode': self.posterior_mode(),
+            'Posterior Median': self.posterior().median(),
+            f'Posterior Intervals ({interval})': [post_interval]
+        }
+        return res
+        
+    # for plotting
+    def prior(self):
+        """Define Beta prior."""
+        return sps.beta(self.a, self.b)
+    
+    def likelihood(self, p):
+        """Define negative binomial likelihood."""
+        dist = sps.nbinom(n=self.r, p=p)
+        return dist.pmf(self.X)
+
+\end{minted}
