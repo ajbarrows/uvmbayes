@@ -1,0 +1,23 @@
+
+\begin{minted}{python}
+def create_Z_support(support_size=10, vec_length=10):
+    Z = np.random.randint(2, size=(vec_length, support_size))
+    return Z
+    
+def create_proposal_distr_P(support_size=10, vec_length=10):
+    # Create P and normalize
+    P = (np.random.random(support_size*vec_length)
+         .reshape(vec_length,support_size)
+         .astype(np.float64)
+    )
+    P /= P.sum(axis=0, keepdims=True) 
+   
+    return P
+\end{minted}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{data/05_reporting/problem_set_2/proposal_distribution.pdf}
+    \caption{$P$ proposal distribution.}
+    \label{fig:proposal-dist}
+\end{figure}
