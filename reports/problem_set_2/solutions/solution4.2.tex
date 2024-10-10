@@ -1,0 +1,33 @@
+\begin{minted}{minted}
+def propose_next_state(Z, P, init_state):
+    """
+        Return a proposed move move based on current state.
+
+        Parameters
+        ----------
+            
+        Z : np.array
+            The matrix of z support vectors.
+            
+        P : np.array
+            The matrix of transition probabilities. Normalized by columns.
+            
+        init_state : int
+            The current state, stored as the row index wrt Z support
+            
+        Returns
+        --------
+        
+        next_state_row: np.array
+            The next states, stored as the vector given by the support Z
+            
+        next_state_row_idx: int
+            The next state, stored as the row index wrt Z support 
+        
+    """
+    
+    # states are represented by integers indexed at 0, stored in STATE_SPACE
+    next_state_row_idx = np.random.choice(Z.shape[0], p=P[:, init_state])
+    next_state_row = Z[next_state_row_idx, :]
+    return next_state_row, next_state_row_idx
+\end{minted}
