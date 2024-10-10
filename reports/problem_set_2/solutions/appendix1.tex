@@ -1,0 +1,48 @@
+\label{sec:appendix1}
+
+\begin{minted}{python}
+def metropolis_hastings(support_size, vec_length, T=1000):
+    """Run the MH algorithm"""
+    
+    # Create the support Z
+    Z = create_Z_support(support_size, vec_length)
+    P = create_proposal_distr_P(support_size, vec_length)
+    
+    # Init State
+    proposed_state_idx = 0
+    init_state, init_state_idx = propose_next_state(Z, P, init_state=int(proposed_state_idx))
+    
+    # Trackers
+    states = []
+    prob_accumulator = []
+    states.append((init_state, init_state_idx))
+    
+    for t in range(T):
+        # Sample state
+        i_state, i_state_idx = states[-1]
+        i_sum = np.sum(i_state)
+  
+        # generate proposal
+        j_state, j_state_idx = propose_next_state(Z, P, i_state_idx)
+        j_sum = np.sum(j_state)
+    
+        # calculate acceptance prob.
+        A = min(1, (P[i_state_idx, j_state_idx] * j_sum) / (P[j_state_idx, i_state_idx] * i_sum))
+        
+        # Transition threshold
+        t_rand  = np.random.rand()
+
+        if t_rand < A:
+            # accept
+            states.append((j_state, j_state_idx))
+            
+            # store result
+            prob_accumulator.append(j_state_idx)
+        else:
+            states.append((i_state, i_state_idx))
+            
+            # store result
+            prob_accumulator.append(i_state_idx)
+            
+    return Z, P, states, prob_accumulator
+\end{minted}
