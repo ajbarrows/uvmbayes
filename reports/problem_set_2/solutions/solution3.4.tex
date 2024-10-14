@@ -1,0 +1,38 @@
+Likelihood:
+
+\begin{align*}
+    P(Y|X\alpha, \beta, \sigma^2) & =
+    \left(
+        \frac{1}{\sqrt{2\pi\sigma^2}}
+    \right)^N
+    \exp
+    \left[
+        -\frac{1}{2}
+        \sum_{i=1}^N
+        \left(
+            \frac{(Y_i - \alpha - \beta X_i}{\sigma}
+        \right)^2
+    \right]
+\end{align*}
+
+Log-posterior:
+
+\begin{align*}
+    \log P(\alpha, \beta, \sigma^2|Y, X) \propto 
+    -\frac{N}{2}
+    \log \sigma^2
+    -
+    \frac{1}{2}
+    \sum_{i=1}^N
+    \frac{(Y_i - \alpha - \beta X_i)^2}{\sigma^2}
+    +
+    \log P(\alpha, \beta, \sigma^2)
+\end{align*}
+
+where
+\begin{align*}
+    \log P(\alpha, \beta, \sigma^2) &= \log P(\alpha) + \log P(\beta) + \log P(\sigma^2) \\
+    \log P(\alpha) &\propto - \frac{\alpha^2}{2} \\
+    \log P(\beta) & \propto - \frac{\beta^2}{2} \\
+    \log P(\sigma^2) &\propto -\log \sigma^2 - [\log \sigma^2]^2.
+\end{align*}
