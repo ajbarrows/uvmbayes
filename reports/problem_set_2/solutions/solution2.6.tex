@@ -1,0 +1,12 @@
+\begin{align*}
+    E_{p(\theta|X)}[f(\theta,u)] &= \int_{-\infty}^{\infty}|t-u|^3\cdot f_{\theta}(t) dt\\
+    \frac{d}{du}E_{p(\theta|X)}[f(\theta,u)] &= \frac{d}{du}\int_{-\infty}^{\infty}|t-u|^3\cdot f_{\theta}(t) dt\\
+    &= \frac{d}{du}\left(\int_{-\infty}^{u}|t-u|^3\cdot f_{\theta}(t) dt + \int_{u}^{\infty}|t-u|^3\cdot f_{\theta}(t) dt\right)\\
+    &= \int_{-\infty}^{u}\frac{d}{du}|t-u|^3\cdot f_{\theta}(t) dt + \int_{u}^{\infty}\frac{d}{du}|t-u|^3\cdot f_{\theta}(t) dt\\
+    &= \int_{-\infty}^{u}-3(t-u)^2\cdot f_{\theta}(t) dt + \int_{u}^{\infty}3(t-u)^2\cdot f_{\theta}(t) dt\\
+    &= -F_{\theta}(t)\cdot E[(\theta-u)^2|\theta \in (-\infty,u)] + (1-F_{\theta}(t))\cdot E[(\theta-u)^2|\theta \in (-\infty,u)]\\
+    &= 0 \text{ to solve for } \hat{u} \text{ that minimizes the expected value of the cubic loss}\\
+    F_{\theta}(t) &= 1 - F_{\theta}(t)\\
+    &= \frac{1}{2} \Rightarrow \hat{u} = \text{median}
+\end{align*}
+Whereas the mean minimizes the expected value of the squared loss, it is the median that minimizes the expected value of the cubic loss.
