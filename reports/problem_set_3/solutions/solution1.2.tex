@@ -1,0 +1,29 @@
+The likelihood is given by
+
+\begin{equation*}
+    P(Y|\gamma) = \Pi_{i=1}^n \frac{\gamma^y e^{-\gamma}}{y!},
+\end{equation*}
+
+and the prior is given by
+
+\begin{equation*}
+    f(\lambda ) = \frac{\beta^\alpha}{\Gamma(\alpha)}\gamma^{\alpha - 1} \e^{-\beta x}.
+\end{equation*}
+
+Posterior:
+
+\begin{align*}
+    P(\lambda | Y_1, \ldots, Y_n) &= \frac{P(Y-1, \ldots, Y_n | \gamma) P(\gamma)}{P(Y_1, \ldots, Y_n)} \\
+                                 & \propto \Pi_{i=1}^{n} \frac{\gamma^y e^{-\gamma}}{y!} \left( \frac{\beta^\alpha}{\Gamma(\alpha)}\gamma^{\alpha - 1} \e^{-\beta x} \right) \\
+                                 & \propto \frac{\gamma^{\sum y_i e^{-n\gamma}}}{\Pi_{i=1}^n (y_i!)} \left( \frac{\beta^\alpha}{\Gamma(\alpha)}\gamma^{\alpha - 1} \e^{-\beta x} \right) \\
+                                 & \propto \gamma^{\sum y_i + \alpha - 1} e^{-(n + \beta) x}
+\end{align*}        
+
+where $\Pi_{i=1}^n(y_i!)$ and $\Gamma(\alpha)$ act as normalizations. This can be expressed as the gamma function:
+
+\begin{equation*}
+    P(\gamma|Y_1, \ldots, Y_n) = \texttt{gamma} (\sum y_i + \alpha, n + \beta).
+\end{equation*}
+
+
+% TODO add python algorithm
