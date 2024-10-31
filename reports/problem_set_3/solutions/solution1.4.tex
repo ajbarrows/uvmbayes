@@ -1,0 +1,33 @@
+\subsection{}
+
+\begin{minted}{python}
+poisson_model = """
+data {
+    int<lower=0> N;
+    array[N] int<lower=0> y;
+}
+
+parameters {
+    real<lower=0> lambda;
+}
+
+model {
+    lambda ~ gamma(14, 4);
+    y ~ poisson(lambda);
+}
+"""
+
+model = CmdStanModel(stan_file=fpath)
+data = {
+    "N": len(Y),
+    'y': Y
+}
+model_fit = model.sample(data=data, iter_sampling=5000)
+\end{minted}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
