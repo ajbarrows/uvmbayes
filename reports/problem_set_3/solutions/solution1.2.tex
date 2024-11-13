@@ -1,3 +1,4 @@
+\subsection{}
 The likelihood is given by
 
 \begin{equation*}
@@ -26,4 +27,22 @@ where $\Pi_{i=1}^n(y_i!)$ and $\Gamma(\alpha)$ act as normalizations. This can b
 \end{equation*}
 
 
-% TODO add python algorithm
+\begin{minted}{python}
+def exact_posterior(Y, alpha, beta):
+
+    N = len(Y)
+
+    # define closed-form posterior
+    a = np.sum(Y) + alpha
+    scale = 1 / (N + beta)
+    
+    return sps.gamma(a, scale=scale)
+
+
+SAMPLES = 5000
+lambda_space = np.linspace(11, 15)
+
+posterior = exact_posterior(Y, alpha, beta)
+exact_posterior_density = posterior.pdf(lambda_space)
+exact_samples = posterior.rvs(SAMPLES)
+\end{minted}

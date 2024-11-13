@@ -1,0 +1,27 @@
+\subsection{}
+\begin{minted}{python}
+def grid_approx_posterior(Y: pd.Series, alpha=14, beta=4):
+   # define a grid of possible values for lambda
+   # construct distribution for lambda using gamma prior
+   a = alpha
+   scale = 1 / beta
+
+   prior = sps.gamma(a, scale=scale).logpdf(grid_lambda)
+   
+   likelihoods = [sps.poisson(mu = grid_lambda).logpmf(y) for y in Y]
+   likelihood = np.sum(np.vstack(likelihoods), axis=0)
+   
+   posterior = np.exp(likelihood + prior)
+   normalized = posterior / sum(posterior)
+
+   return normalized / sum(normalized)
+
+grid_lambda = np.linspace(10, 15, num=100)
+grid_posterior = grid_approx_posterior(Y, alpha, beta)
+
+# need to normalize twice because of floating point precision
+grid_samples = np.random.choice(grid_lambda, 
+                                 size=5000, 
+                                 p=grid_posterior/np.sum(grid_posterior))
+    
+\end{minted}
